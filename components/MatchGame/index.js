@@ -3,38 +3,40 @@ import Navbar from '../Navbar'
 import ScoreBoard from '../ScoreBoard'
 import TabItem from '../TabItem'
 import ThumbNailItem from '../ThumbnailItem'
+import './index.css'
 
 class MatchGame extends Component {
   state = {
-    isTimerRunning: true,
     initialTime: 60,
     score: 0,
     tabName: 'FRUIT',
+    matched: false,
+    imageId: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
+    isGameInProgress: true,
   }
 
   componentDidMount() {
-    const {isTimerRunning} = this.state
-    if (isTimerRunning) {
-      this.timerID = setInterval(this.incrementTimeElapsedInSeconds, 1000)
-    } else {
-      clearInterval(this.timerID)
-    }
+    this.timeInterval()
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID)
   }
 
+  timeInterval = () => {
+    this.timerID = setInterval(this.incrementTimeElapsedInSeconds, 1000)
+  }
+
   incrementTimeElapsedInSeconds = () => {
     const {initialTime} = this.state
 
     if (initialTime === 0) {
-      this.setState(prevState => ({isTimerRunning: !prevState.isTimerRunning}))
+      this.setState({isGameInProgress: false})
       clearInterval(this.timerID)
     } else {
-      this.setState(prevState => ({
-        initialTime: prevState.initialTime - 1,
-      }))
+      this.setState({
+        initialTime: initialTime - 1,
+      })
     }
   }
 
@@ -44,6 +46,17 @@ class MatchGame extends Component {
     const Time = initialTime > 9 ? initialTime : `0${initialTime}`
 
     return `${Time}`
+  }
+
+  reset = () => {
+    this.setState({
+      initialTime: 60,
+      score: 0,
+      tabName: 'FRUIT',
+      matched: false,
+      imageId: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
+      isGameInProgress: true,
+    })
   }
 
   getImage = () => {
@@ -63,24 +76,48 @@ class MatchGame extends Component {
     const {imagesList} = this.props
     const index = Math.floor(Math.random() * imagesList.length)
     const newImage = imagesList[index]
-    return <img src={newImage.imageUrl} alt="match" />
+    return newImage
+  }
+
+  onClickCheck = id => {
+    const {imageId} = this.state
+    if (id === imageId) {
+      const newImage = this.questionImage()
+      this.setState(prev => ({
+        matched: !prev.matched,
+        score: prev.score + 1,
+        imageId: newImage.id,
+      }))
+    } else {
+      this.setState({matched: false})
+    }
   }
 
   renderList = () => {
-    const {tabsList} = this.props
+    const {imagesList, tabsList} = this.props
+    const {imageId} = this.state
     const FilterImagesList = this.getImage()
-
+    const newImage = imagesList.filter(each => each.id === imageId)
     return (
       <div>
-        {this.questionImage()}
+        <img src={newImage[0].imageUrl} alt="match" />
+
         <ul>
           {tabsList.map(eachTab => (
-            <TabItem tabDetails={eachTab} tabFunction={this.tabFunction} />
+            <TabItem
+              key={eachTab.tabId}
+              tabDetails={eachTab}
+              tabFunction={this.tabFunction}
+            />
           ))}
         </ul>
         <ul>
           {FilterImagesList.map(eachImage => (
-            <ThumbNailItem imageDetails={eachImage} />
+            <ThumbNailItem
+              key={eachImage.id}
+              imageDetails={eachImage}
+              onClickCheck={this.onClickCheck}
+            />
           ))}
         </ul>
       </div>
@@ -88,15 +125,18 @@ class MatchGame extends Component {
   }
 
   render() {
-    const {initialTime, score} = this.state
+    const {isGameInProgress, score} = this.state
     const Time = this.formatTime()
     return (
       <div>
-        <Navbar Time={Time} />
-        {initialTime > 0 ? (
+        <ul>
+          <Navbar Time={Time} Score={score} />
+        </ul>
+
+        {isGameInProgress ? (
           <div>{this.renderList()}</div>
         ) : (
-          <ScoreBoard score={score} />
+          <ScoreBoard score={score} reset={this.reset} />
         )}
       </div>
     )

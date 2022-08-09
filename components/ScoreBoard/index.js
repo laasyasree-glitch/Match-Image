@@ -1,5 +1,9 @@
 const ScoreBoard = props => {
-  const {score} = props
+  const {score, reset} = props
+
+  const restart = () => {
+    reset()
+  }
 
   return (
     <div>
@@ -7,8 +11,14 @@ const ScoreBoard = props => {
         src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
         alt="trophy"
       />
-      <h1>Your Score</h1>
-      <p>{score}</p>
+      <p>YOUR SCORE : {score}</p>
+      <button type="button" onClick={restart}>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+          alt="reset"
+        />
+        PLAY AGAIN
+      </button>
     </div>
   )
 }

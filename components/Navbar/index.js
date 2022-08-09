@@ -1,7 +1,7 @@
 const Navbar = props => {
-  const {Time} = props
+  const {Time, Score} = props
   return (
-    <div>
+    <li>
       <img
         src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
         alt="website logo"
@@ -11,9 +11,10 @@ const Navbar = props => {
           src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
           alt="timer"
         />
+        <p>Score: {Score}</p>
         <p>{Time} sec</p>
       </div>
-    </div>
+    </li>
   )
 }
 export default Navbar

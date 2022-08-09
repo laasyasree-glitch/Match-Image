@@ -1,10 +1,16 @@
 const ThumbNailItem = props => {
-  const {imageDetails} = props
-  const {imageUrl} = imageDetails
+  const {imageDetails, onClickCheck} = props
+  const {id, imageUrl} = imageDetails
+
+  const isMatched = () => {
+    onClickCheck(id)
+  }
 
   return (
     <li>
-      <img src={imageUrl} alt="thumbnail" />
+      <button type="button" onClick={isMatched}>
+        <img src={imageUrl} alt="thumbnail" />
+      </button>
     </li>
   )
 }
