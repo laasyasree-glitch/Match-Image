@@ -57,6 +57,7 @@ class MatchGame extends Component {
       imageId: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
       isGameInProgress: true,
     })
+    this.timeInterval()
   }
 
   getImage = () => {
@@ -89,7 +90,8 @@ class MatchGame extends Component {
         imageId: newImage.id,
       }))
     } else {
-      this.setState({matched: false})
+      this.setState({matched: false, isGameInProgress: false})
+      clearInterval(this.timerID)
     }
   }
 

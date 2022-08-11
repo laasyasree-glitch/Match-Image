@@ -247,7 +247,6 @@ const imagesList = [
   },
 ]
 
-// Replace your code here
 const App = () => <MatchGame imagesList={imagesList} tabsList={tabsList} />
 
 export default App
