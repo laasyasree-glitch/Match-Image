@@ -1,3 +1,5 @@
+import './index.css'
+
 const ScoreBoard = props => {
   const {score, reset} = props
 
@@ -6,19 +8,22 @@ const ScoreBoard = props => {
   }
 
   return (
-    <div>
+    <div className="score-container">
       <img
         src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
         alt="trophy"
+        className="trophy"
       />
-      <p>YOUR SCORE : {score}</p>
-      <button type="button" onClick={restart}>
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
-          alt="reset"
-        />
-        PLAY AGAIN
-      </button>
+      <div className="score-board">
+        <p>YOUR SCORE: {score}</p>
+        <button type="button" onClick={restart}>
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+            alt="reset"
+          />
+          PLAY AGAIN
+        </button>
+      </div>
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import './index.css'
+
 const TabItem = props => {
   const {tabDetails, tabFunction} = props
   const {displayText, tabId} = tabDetails
@@ -7,8 +9,8 @@ const TabItem = props => {
   }
 
   return (
-    <li>
-      <button type="button" onClick={idGrabber}>
+    <li className="list">
+      <button className="tab-button" type="button" onClick={idGrabber}>
         {displayText}
       </button>
     </li>

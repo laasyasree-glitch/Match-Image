@@ -1,3 +1,44 @@
-img {
-  width: 15%;
+* {
+  margin: 0%;
+  box-sizing: border-box;
+}
+.questionImage {
+  width: 40%;
+  border-radius: 15px;
+  margin-top: 0%;
+  margin-bottom: 1%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-bg.png');
+  background-size: cover;
+  min-height: 100vh;
+  padding: 2%;
+}
+
+.tab-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  list-style-type: none;
+  width: 100%;
+  margin-bottom: 2%;
+}
+.thumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .questionImage {
+    width: 90%;
+    margin-bottom: 3%;
+    margin-top: 2%;
+  }
 }

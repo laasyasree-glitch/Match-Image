@@ -101,10 +101,10 @@ class MatchGame extends Component {
     const FilterImagesList = this.getImage()
     const newImage = imagesList.filter(each => each.id === imageId)
     return (
-      <div>
-        <img src={newImage[0].imageUrl} alt="match" />
+      <div className="container">
+        <img className="questionImage" src={newImage[0].imageUrl} alt="match" />
 
-        <ul>
+        <ul className="tab-list">
           {tabsList.map(eachTab => (
             <TabItem
               key={eachTab.tabId}
@@ -113,7 +113,7 @@ class MatchGame extends Component {
             />
           ))}
         </ul>
-        <ul>
+        <ul className="thumb-list">
           {FilterImagesList.map(eachImage => (
             <ThumbNailItem
               key={eachImage.id}
@@ -131,10 +131,7 @@ class MatchGame extends Component {
     const Time = this.formatTime()
     return (
       <div>
-        <ul>
-          <Navbar Time={Time} Score={score} />
-        </ul>
-
+        <Navbar Time={Time} Score={score} />
         {isGameInProgress ? (
           <div>{this.renderList()}</div>
         ) : (
